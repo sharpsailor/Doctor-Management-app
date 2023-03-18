@@ -1,10 +1,16 @@
 import React from "react";
 import "../styles/RegisterStyles.css";
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Register = () => {
-  const onfinishHandler = (values) => {
-    console.log(values);
+  const onfinishHandler = async (values) => {
+    try {
+      const res = await axios.post('/api/v1/user/Register')
+    } catch (error) {
+      console.log(error);
+      message.error(`Something went wrong`);
+    }
   };
   return (
     <>
