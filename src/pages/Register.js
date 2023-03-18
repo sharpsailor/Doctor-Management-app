@@ -1,12 +1,19 @@
 import React from "react";
 import "../styles/RegisterStyles.css";
 import { Form, Input, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const Register = () => {
+  const navigate = useNavigate();
   const onfinishHandler = async (values) => {
     try {
-      const res = await axios.post('/api/v1/user/Register')
+      const res = await axios.post('/api/v1/user/Register', values);
+      if (res.data.success) {
+        message.success(`Registered Successfully!`);
+        navigate('/Login');
+      } else {
+        message.error(res.data.message);
+      }
     } catch (error) {
       console.log(error);
       message.error(`Something went wrong`);
